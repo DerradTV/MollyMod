@@ -1,6 +1,7 @@
 package net.derrad.mollymod;
 
 import com.mojang.logging.LogUtils;
+import net.derrad.mollymod.item.ModItems;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -11,14 +12,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(MollyMod.MOD_ID)
+@Mod(MollyMod.MODID)
 public class MollyMod {
-    public static final String MOD_ID = "mollymod";
+    public static final String MODID = "mollymod";
     private static final Logger LOGGER = LogUtils.getLogger();
 
     // Very Important Comment
     public MollyMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModItems.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -30,7 +33,7 @@ public class MollyMod {
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
